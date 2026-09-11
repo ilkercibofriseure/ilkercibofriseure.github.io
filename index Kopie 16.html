@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ilker Cibo Friseure — Lichtenstein</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;0,6..96,700;0,6..96,800;1,6..96,400;1,6..96,500&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#100e0f;
+    --ink-dim:#766d6b;
+    --base:#f4f0ea;
+    --base-2:#fffdf9;
+    --base-3:#e9e0d6;
+    --line: rgba(15,13,11,0.15);
+    --red:#741d2b;
+    --red-deep:#50111c;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--base);
+    color:var(--ink);
+    font-family:'Archivo', sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    cursor:none;
+  }
+  @media (max-width:860px){ body{ cursor:auto; } }
+  ::selection{ background:var(--red); color:#fff; }
+  a{ color:inherit; text-decoration:none; }
+  img{max-width:100%; display:block;-webkit-user-drag:none;user-select:none;}
+  .wrap{ max-width:1220px; margin:0 auto; padding:0 34px; }
+  h1,h2,h3,.serif{ font-family:'Bodoni Moda', serif; font-weight:500; letter-spacing:-0.01em; }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; }
+  }
+
+  /* ---------- print-frame corner marks ---------- */
+  .crop{ position:fixed; width:16px; height:16px; z-index:250; pointer-events:none; opacity:0.55; }
+  .crop::before,.crop::after{ content:""; position:absolute; background:var(--ink); }
+  .crop::before{ width:16px; height:1px; top:8px; left:0; }
+  .crop::after{ width:1px; height:16px; left:8px; top:0; }
+  .crop.tl{ top:14px; left:14px; } .crop.tr{ top:14px; right:14px; } .crop.bl{ bottom:14px; left:14px; } .crop.br{ bottom:14px; right:14px; }
+  @media (max-width:700px){ .crop{ display:none; } }
+
+  /* ---------- CUSTOM CURSOR ---------- */
+  #cursorDot{ position:fixed; top:0; left:0; width:6px; height:6px; background:var(--ink); border-radius:50%; pointer-events:none; z-index:999; transform:translate(-50%,-50%); }
+  #cursorRing{ position:fixed; top:0; left:0; pointer-events:none; z-index:999; width:40px; height:40px; border:1px solid var(--ink); border-radius:50%; transform:translate(-50%,-50%); display:flex; align-items:center; justify-content:center; transition:width .25s ease,height .25s ease,border-color .25s ease,background .25s ease; }
+  #cursorRing span{ font-family:'Archivo',sans-serif; font-size:0.6rem; letter-spacing:0.08em; opacity:0; transition:opacity .2s ease; white-space:nowrap; }
+  #cursorRing.big{ width:84px; height:84px; background:var(--ink); }
+  #cursorRing.big span{ opacity:1; color:var(--base); }
+  #cursorRing.red{ border-color:var(--red); }
+  @media (max-width:860px){ #cursorDot,#cursorRing{ display:none; } }
+
+  /* ---------- PROGRESS BAR ---------- */
+  #progress{ position:fixed; top:0; left:0; height:2px; background:var(--red); z-index:200; width:0%; }
+
+  /* ---------- UTILITY BAR ---------- */
+  .utility{position:absolute;top:0;left:0;right:0;z-index:120;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:#fff;}
+  .utility .wrap{display:flex;justify-content:space-between;align-items:center;padding:20px 34px;}
+  .utility a{ transition:color .25s ease; }
+  .utility a:hover{ color:var(--red); }
+  .utility .u-links{ display:flex; gap:22px; }
+  .menu-toggle{appearance:none;border:0;background:transparent;color:#fff;font:inherit;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;padding:0;}
+  .menu-toggle:hover{opacity:.7;}
+  @media (max-width:640px){ .utility .u-links a:nth-child(3){ display:none; } }
+
+  /* ---------- MASTHEAD ---------- */
+  .masthead{display:none;}
+  .masthead .mast-eyebrow{
+    font-size:0.72rem; letter-spacing:0.24em; text-transform:uppercase; color:var(--ink-dim); margin-bottom:18px;
+  }
+  .masthead h1{
+    font-size:clamp(3.2rem, 9vw, 7.2rem);
+    letter-spacing:0.01em;
+    line-height:0.92;
+    opacity:0; transform:scale(0.94); animation: mastIn 1.1s cubic-bezier(.19,1,.22,1) forwards; animation-delay:0.15s;
+  }
+  .masthead .mast-sub{
+    font-family:'Bodoni Moda',serif; font-style:italic; font-weight:400; font-size:clamp(1rem,2.2vw,1.4rem);
+    color:var(--red); margin-top:4px;
+    opacity:0; animation: fadeUp .9s ease forwards; animation-delay:0.7s;
+  }
+  @keyframes mastIn{ to{ opacity:1; transform:scale(1); } }
+  @keyframes fadeUp{ from{ opacity:0; transform:translateY(12px);} to{ opacity:1; transform:translateY(0);} }
+
+  /* ---------- STICKY NAV ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    transform:translateY(-100%); transition: transform 0.4s cubic-bezier(.19,1,.22,1);
+    background:rgba(16,14,15,.9); backdrop-filter:blur(10px); border-bottom:1px solid rgba(255,255,255,.15);
+    padding:16px 0;
+  }
+  header.show{ transform:translateY(0); }
+  nav.wrap{ display:flex; align-items:center; justify-content:space-between; }
+  .logo-mini{ font-family:'Bodoni Moda',serif; font-size:1.15rem; letter-spacing:0.02em; color:#fff; }
+  .navlinks{ display:none; gap:30px; align-items:center; }
+  @media (min-width:900px){ .navlinks{ display:flex; } }
+  .navlinks a{ font-size:0.78rem; letter-spacing:0.06em; text-transform:uppercase; color:rgba(255,255,255,.72); position:relative; padding-bottom:3px; transition:color .25s ease; }
+  .navlinks a:hover{ color:#fff; }
+  .navlinks a::after{ content:""; position:absolute; left:0; bottom:0; width:0; height:1px; background:var(--red); transition:width .3s ease; }
+  .navlinks a:hover::after{ width:100%; }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:13px 24px; font-size:0.76rem; letter-spacing:0.08em; text-transform:uppercase; font-weight:600;
+    border:1px solid var(--ink); color:var(--ink);
+    transition: transform .35s cubic-bezier(.19,1,.22,1), background .3s ease, color .3s ease, border-color .3s ease;
+    white-space:nowrap; font-family:'Archivo',sans-serif;
+  }
+  .btn:hover{ background:var(--ink); color:var(--base-2); }
+  .btn.solid{ background:var(--ink); color:var(--base-2); }
+  .btn.solid:hover{ background:var(--red); border-color:var(--red); color:#fff; }
+  .navcta{ display:none; }
+  @media (min-width:900px){ .navcta{ display:inline-flex; } }
+
+  /* ---------- TICKER ---------- */
+  .ticker{ position:relative; overflow:hidden; background:var(--ink); color:var(--base); padding:13px 0; white-space:nowrap; }
+  .ticker-track{ display:inline-flex; animation: scrollLeft 30s linear infinite; }
+  .ticker span{ font-family:'Bodoni Moda',serif; font-style:italic; font-size:1rem; padding:0 26px; display:inline-flex; align-items:center; gap:26px; }
+  .ticker span i{ color:var(--red); font-style:normal; }
+  @keyframes scrollLeft{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+
+  /* ---------- COVER / HERO ---------- */
+  .cover{padding:0;min-height:100svh;border-bottom:1px solid var(--line);background:#171314;color:#fff;position:relative;overflow:hidden;}
+  .cover .wrap{max-width:none;padding:0;}
+  .cover-grid{min-height:100svh;display:block;position:relative;}
+  @media (max-width:960px){ .cover-grid{min-height:88svh;} }
+  .cover-grid > div:first-child{position:absolute;z-index:3;left:clamp(22px,5vw,72px);right:clamp(22px,5vw,72px);bottom:clamp(26px,5vw,62px);}
+  .cover-kicker{display:flex;align-items:center;gap:14px;font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.78);margin-bottom:18px;}
+  .cover-kicker .rule{ width:34px; height:1px; background:var(--red); }
+  .cover h2{
+    font-family:'Archivo',sans-serif;font-weight:600;font-size:clamp(4.2rem,13.5vw,13.5rem);letter-spacing:-.09em;line-height:.75;max-width:none;
+  }
+  .cover-lead{margin-top:28px;max-width:40ch;color:rgba(255,255,255,.88);font-size:1.02rem;}
+  .cover-actions{ display:flex; gap:14px; margin-top:38px; flex-wrap:wrap; }
+
+  .cover-plate{position:absolute;inset:0;z-index:1;}
+  .plate-frame{
+    border:0;background:#d7c9bd;aspect-ratio:auto;width:100%;height:100%;position:relative;overflow:hidden;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .plate-frame svg{ width:62%; opacity:0.9; }
+  .plate-frame img{width:100%;height:100%;object-fit:cover;object-position:center 42%;filter:saturate(.62) contrast(1.03) brightness(.76);transform:scale(1.015);transition:transform 1.2s cubic-bezier(.19,1,.22,1),filter .7s ease;}
+  .cover:hover .plate-frame img{transform:scale(1.07);filter:saturate(.92) contrast(1.08);}
+  .plate-frame::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(16,14,15,.32),transparent 36%,rgba(16,14,15,.72));pointer-events:none;}
+  .plate-caption{position:absolute;z-index:3;right:clamp(22px,5vw,72px);bottom:clamp(28px,5vw,64px);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.72);margin:0;}
+  .plate-caption span:first-child{display:none;}
+  .plate-badge{
+    display:none;
+  }
+  .plate-badge .num{ font-family:'Bodoni Moda',serif; font-size:2.1rem; line-height:1; }
+  .plate-badge .lbl{ font-size:0.68rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink-dim); margin-top:4px; }
+  .cover .btn{border-color:rgba(255,255,255,.78);color:#fff;}
+  .cover .btn:hover,.cover .btn.solid{background:#fff;border-color:#fff;color:var(--ink);}
+
+  /* ---------- FULL-SCREEN EDITORIAL MENU ---------- */
+  .utility,.masthead,header,main,footer,#progress,.crop{display:none!important;}
+  .atlas-menu{position:fixed;z-index:300;inset:0;padding:clamp(18px,2.8vw,46px);background:linear-gradient(rgba(18,15,16,.34),rgba(18,15,16,.46)),url('assets/ilker-cibo-editorial-hero.png') center 42%/cover fixed;opacity:0;visibility:hidden;transition:opacity .8s ease,visibility 0s linear .8s,padding 2.15s cubic-bezier(.22,1,.36,1);}
+  .atlas-menu.open{opacity:1;visibility:visible;overflow-y:auto;transition:opacity .8s ease,padding 2.15s cubic-bezier(.22,1,.36,1);}
+  .atlas-menu.focused{padding:0;}
+  .atlas-menu-panel{height:100%;background:#fff;display:grid;grid-template-columns:1fr 1fr 1fr;transform:scale(.985);transform-origin:50% 50%;transition:transform 2.15s cubic-bezier(.22,1,.36,1),grid-template-columns 2.2s cubic-bezier(.22,1,.36,1),min-height 1.5s ease;overflow:hidden;box-shadow:0 36px 100px rgba(0,0,0,.18);}
+  .atlas-menu.open .atlas-menu-panel{transform:scale(.985);}
+  .atlas-menu.focused .atlas-menu-panel{transform:scale(1);}
+  .menu-col{min-width:0;min-height:0;position:relative;padding:clamp(20px,3vw,48px);border-right:1px solid var(--line);display:flex;flex-direction:column;cursor:pointer;overflow:hidden;transition:opacity .75s ease .82s,transform 2.05s cubic-bezier(.22,1,.36,1),padding 2.1s cubic-bezier(.22,1,.36,1),background .45s ease;}
+  .menu-col:hover{background:#f6f5f2;}
+  .menu-col:last-child{border-right:0;}
+  .menu-brand{font-family:'Archivo',sans-serif;font-size:clamp(3.5rem,7vw,8rem);font-weight:600;letter-spacing:-.09em;line-height:.78;}
+  .menu-category{appearance:none;border:0;background:transparent;padding:0;color:inherit;text-align:left;cursor:pointer;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;min-height:clamp(100px,13vh,150px);}
+  .menu-category:focus-visible{outline:2px solid var(--red);outline-offset:8px;}
+  .menu-close{position:absolute;right:clamp(20px,3vw,48px);top:clamp(22px,3vw,48px);appearance:none;border:0;background:none;font:inherit;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;}
+  .menu-photo{margin-top:clamp(34px,6vh,72px);height:55%;overflow:hidden;background:#ded4cb;}
+  .menu-photo img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.1);transition:filter .7s ease,transform 1s cubic-bezier(.19,1,.22,1);}
+  .menu-photo:hover img{filter:grayscale(0);transform:scale(1.06);}
+  .menu-meta{margin-top:auto;display:grid;grid-template-columns:repeat(2,1fr);gap:18px;font-size:.72rem;line-height:1.35;}
+  .menu-meta b{display:block;font-family:'Bodoni Moda',serif;font-size:1rem;font-weight:500;margin-bottom:4px;}
+  .menu-meta em{display:block;font-style:normal;color:var(--ink-dim);font-size:.66rem;letter-spacing:.04em;text-transform:uppercase;}
+  .menu-col h3{font-family:'Archivo',sans-serif;font-size:clamp(2.1rem,3.6vw,4.35rem);letter-spacing:-.075em;line-height:.82;margin-bottom:0;white-space:nowrap;}
+  .menu-category h3{transition:color .3s ease,transform .45s cubic-bezier(.19,1,.22,1);}
+  .menu-category:hover h3{color:var(--red);transform:translateX(8px);}
+  .menu-list{list-style:none;display:grid;gap:12px;margin-top:clamp(34px,6vh,72px);}
+  .menu-list a{font-family:'Bodoni Moda',serif;font-size:clamp(1.35rem,2.2vw,2.25rem);line-height:1.05;display:flex;justify-content:space-between;gap:12px;transition:padding .35s cubic-bezier(.19,1,.22,1),color .25s ease;}
+  .menu-list a:hover{padding-left:12px;color:var(--red);}
+  .menu-list small{font-family:'Archivo',sans-serif;font-size:.65rem;letter-spacing:.08em;align-self:center;}
+  .menu-list .service-price{font-family:'Archivo',sans-serif;color:var(--red);font-size:.68rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;}
+  .menu-callout{margin-top:auto;font-family:'Bodoni Moda',serif;font-style:italic;font-size:clamp(1.35rem,2.2vw,2.2rem);line-height:1.05;max-width:12ch;}
+  .menu-book{display:inline-flex;align-items:center;justify-content:center;margin-top:26px;background:var(--ink);color:#fff;padding:16px 18px;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;transition:background .25s ease;}
+  .menu-book:hover{background:var(--red);}
+  .menu-detail{max-height:0;overflow:hidden;opacity:0;transform:translateY(18px);transition:max-height .7s cubic-bezier(.19,1,.22,1),opacity .4s ease .05s,transform .55s cubic-bezier(.19,1,.22,1);}
+  .menu-detail p{max-width:54ch;font-size:clamp(1rem,1.4vw,1.25rem);line-height:1.45;margin:0 0 22px;}
+  .menu-detail .detail-label{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin-bottom:13px;}
+  .menu-back{display:none!important;}
+  .atlas-menu-panel[class*="focus-"]{grid-template-columns:1fr 0 0;height:auto;min-height:100%;}
+  .atlas-menu-panel[class*="focus-"] .menu-col{padding-left:0;padding-right:0;opacity:0;visibility:hidden;transform:scale(.88);pointer-events:none;transition:opacity .72s ease .82s,transform 2.05s cubic-bezier(.22,1,.36,1),padding 2.15s cubic-bezier(.22,1,.36,1),visibility 0s linear 2.12s;}
+  .atlas-menu-panel.focus-salon{grid-template-columns:1fr 0 0;}
+  .atlas-menu-panel.focus-leistungen{grid-template-columns:0 1fr 0;}
+  .atlas-menu-panel.focus-termin{grid-template-columns:0 0 1fr;}
+  .atlas-menu-panel.focus-salon .menu-col[data-category="salon"],.atlas-menu-panel.focus-leistungen .menu-col[data-category="leistungen"],.atlas-menu-panel.focus-termin .menu-col[data-category="termin"]{padding:clamp(28px,5vw,86px) clamp(28px,8vw,160px) 18vh;opacity:1;visibility:visible;transform:scale(1);pointer-events:auto;cursor:default;min-height:135svh;transition:opacity .55s ease,transform 2.15s cubic-bezier(.22,1,.36,1),padding 2.15s cubic-bezier(.22,1,.36,1),visibility 0s;}
+  .atlas-menu-panel[class*="focus-"] .menu-col::after{display:none;}
+  .atlas-menu-panel[class*="focus-"] .menu-category{cursor:default;}
+  .atlas-menu-panel[class*="focus-"] .menu-photo{display:none;}
+  .atlas-menu-panel[class*="focus-"] .menu-meta,.atlas-menu-panel[class*="focus-"] .menu-callout{display:none;}
+  .atlas-menu-panel[class*="focus-"] .menu-detail{max-height:2400px;opacity:1;transform:translateY(0);transition-delay:1.35s;}
+  .atlas-menu-panel[class*="focus-"] .menu-back{display:none!important;}
+  .atlas-menu-panel[class*="focus-"] .menu-col h3{font-size:clamp(4.5rem,11vw,12rem);margin-bottom:clamp(44px,8vh,100px);}
+  .detail-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;margin-top:48px;border:1px solid var(--line);background:var(--line);}
+  .detail-grid div{background:var(--base-2);padding:22px;}
+  .detail-grid b{display:block;font-family:'Bodoni Moda',serif;font-size:1.35rem;font-weight:500;margin-bottom:7px;}
+  .detail-grid span{font-size:.83rem;line-height:1.4;color:var(--ink-dim);}
+  .detail-section{margin-top:clamp(64px,10vh,120px);padding-top:24px;border-top:1px solid var(--line);}
+  .detail-section h4{font-family:'Archivo',sans-serif;font-size:clamp(2rem,4.5vw,5rem);letter-spacing:-.065em;line-height:.9;margin-bottom:30px;}
+  .detail-gallery{display:grid;grid-template-columns:1.25fr .75fr;gap:14px;margin-top:28px;}
+  .detail-gallery img{width:100%;height:clamp(280px,52vw,680px);object-fit:cover;filter:grayscale(.85) contrast(1.08);}
+  .detail-gallery img:last-child{height:72%;margin-top:28%;}
+  .price-list{border-top:1px solid var(--line);}
+  .price-row{display:grid;grid-template-columns:1fr auto;gap:20px;padding:15px 0;border-bottom:1px solid var(--line);font-size:clamp(.95rem,1.25vw,1.12rem);}
+  .price-row b{font-family:'Bodoni Moda',serif;font-weight:500;color:var(--red);white-space:nowrap;}
+  .review-pair{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .review-pair blockquote{display:flex;min-height:230px;flex-direction:column;justify-content:space-between;font-family:'Bodoni Moda',serif;font-style:italic;font-size:clamp(1.2rem,2.2vw,2rem);line-height:1.25;padding:30px;border:1px solid var(--line);background:#fff;transition:transform .35s cubic-bezier(.19,1,.22,1),border-color .3s ease,box-shadow .35s ease;}
+  .review-pair blockquote:hover{transform:translateY(-5px);border-color:rgba(116,29,43,.45);box-shadow:0 20px 48px -36px rgba(16,14,15,.65);}
+  .review-pair footer{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-top:28px;padding:18px 0 0;border-top:1px solid var(--line);font-family:'Archivo',sans-serif;font-style:normal;}
+  .review-author{display:block;font-size:.72rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;}
+  .review-source{display:block;margin-top:3px;font-size:.64rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-dim);}
+  .review-stars{color:var(--red);font-size:.78rem;letter-spacing:.13em;white-space:nowrap;}
+  .contact-block{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:40px;}
+  .contact-block iframe{width:100%;min-height:360px;border:0;filter:grayscale(1);}
+  .global-back{position:fixed;z-index:340;top:clamp(16px,2vw,28px);right:clamp(16px,2vw,28px);display:flex;align-items:center;gap:8px;border:0;background:rgba(255,255,255,.7);backdrop-filter:blur(12px);padding:10px 13px;font:500 .66rem/1 'Archivo',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:rgba(16,14,15,.68);cursor:pointer;opacity:0;visibility:hidden;transform:translateY(-10px);transition:opacity .45s ease 1.35s,transform .55s cubic-bezier(.22,1,.36,1) 1.35s,visibility 0s linear 1.8s;}
+  .global-back:hover{color:var(--ink);background:rgba(255,255,255,.92);}
+  .atlas-menu.focused .global-back{opacity:1;visibility:visible;transform:translateY(0);transition:opacity .45s ease 1.35s,transform .55s cubic-bezier(.22,1,.36,1) 1.35s;}
+  .review-score-strip{display:flex;gap:clamp(28px,6vw,80px);margin:0 0 34px;}
+  .review-score-strip b{font-family:'Archivo',sans-serif;font-size:clamp(2.8rem,6vw,6rem);letter-spacing:-.08em;line-height:.9;display:block;}
+  .review-score-strip span{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-dim);}
+  .review-score-strip em{display:block;margin-top:7px;color:var(--red);font-style:normal;font-size:.72rem;letter-spacing:.13em;}
+  .atlas-menu.settled{padding:0;}
+  .atlas-menu.settled .menu-detail{max-height:none;overflow:visible;}
+  .team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:34px;}
+  .team-card{border:1px solid var(--line);background:#fff;}
+  .team-photo-placeholder{aspect-ratio:3/4;background:linear-gradient(145deg,#eeeae5,#d9d4cf);display:grid;place-items:center;font-family:'Archivo',sans-serif;font-size:clamp(3rem,7vw,7rem);font-weight:600;letter-spacing:-.08em;color:rgba(16,14,15,.17);}
+  .team-caption{padding:18px;display:flex;justify-content:space-between;gap:14px;align-items:baseline;}
+  .team-caption b{font-family:'Bodoni Moda',serif;font-size:1.45rem;font-weight:500;}
+  .team-caption span{font-size:.68rem;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-dim);text-align:right;}
+  .team-editorial{display:none;}
+  .atlas-menu.settled .focus-salon .team-editorial{display:block;}
+  @media(max-width:760px){.team-grid{grid-template-columns:1fr;}}
+  @media(max-width:760px){.atlas-menu{padding:20px;overflow:auto;}.atlas-menu.focused{padding:0;}.atlas-menu-panel{height:auto;min-height:100%;grid-template-columns:1fr;transform:scale(.96);}.atlas-menu.open .atlas-menu-panel{transform:scale(.96);}.atlas-menu.focused .atlas-menu-panel{transform:scale(1);}.menu-col{min-height:66vh;border-right:0;border-bottom:1px solid var(--line);}.menu-col:first-child{min-height:82vh;}.menu-photo{height:42vh;}.menu-meta{margin-top:28px;}.menu-col h3{margin-bottom:34px;}.menu-close{position:fixed;z-index:2;background:#fff;padding:10px;}.menu-callout{margin-top:38px;}.atlas-menu-panel[class*="focus-"]{display:block;}.atlas-menu-panel[class*="focus-"] .menu-col{display:none;}.atlas-menu-panel.focus-salon .menu-col[data-category="salon"],.atlas-menu-panel.focus-leistungen .menu-col[data-category="leistungen"],.atlas-menu-panel.focus-termin .menu-col[data-category="termin"]{display:flex;min-height:135svh;}.atlas-menu-panel[class*="focus-"] .menu-col h3{font-size:clamp(4.5rem,18vw,8rem);}.detail-grid,.detail-gallery,.review-pair,.contact-block{grid-template-columns:1fr;}.detail-gallery img:last-child{height:360px;margin-top:0;}}
+
+  /* ---------- CONTENTS / TOC ---------- */
+  .toc{ padding:80px 0; border-bottom:1px solid var(--line); }
+  .toc-head{ font-size:0.76rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-dim); margin-bottom:36px; display:flex; align-items:center; gap:14px; }
+  .toc-head .rule{ width:34px; height:1px; background:var(--red); }
+  .toc-list a{
+    display:flex; align-items:baseline; gap:18px; padding:20px 0; border-top:1px solid var(--line);
+    transition: padding-left .35s cubic-bezier(.19,1,.22,1);
+  }
+  .toc-list a:last-child{ border-bottom:1px solid var(--line); }
+  .toc-list a:hover{ padding-left:14px; }
+  .toc-list .idx{ font-family:'Bodoni Moda',serif; font-size:1.1rem; color:var(--red); width:2.4ch; flex-shrink:0; }
+  .toc-list .ttl{ font-family:'Bodoni Moda',serif; font-size:clamp(1.4rem,3vw,2rem); flex:1; }
+  .toc-list .pg{ font-size:0.78rem; color:var(--ink-dim); letter-spacing:0.05em; }
+
+  /* ---------- SECTION scaffolding ---------- */
+  section{ padding:96px 0; position:relative; }
+  .kicker{ display:flex; align-items:center; gap:14px; color:var(--red); font-size:0.76rem; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:20px; }
+  .kicker .rule{ width:34px; height:1px; background:var(--red); }
+  .sec-title{ font-size:clamp(1.9rem,3.8vw,2.9rem); max-width:18ch; }
+
+  /* ---------- STORY (about) ---------- */
+  .story{ border-bottom:1px solid var(--line); background:var(--base-2); }
+  .story-grid{ display:grid; grid-template-columns:1fr 1fr; gap:74px; align-items:start; margin-top:48px; }
+  @media (max-width:900px){ .story-grid{ grid-template-columns:1fr; gap:40px; } }
+  .drop p:first-of-type::first-letter{
+    font-family:'Bodoni Moda',serif; font-size:4.6rem; float:left; line-height:0.8; padding:6px 10px 0 0; color:var(--red);
+  }
+  .story p{ color:var(--ink-dim); font-size:1.03rem; max-width:54ch; }
+  .story p + p{ margin-top:16px; }
+  .pull-quote{
+    font-family:'Bodoni Moda',serif; font-style:italic; font-size:clamp(1.3rem,2.4vw,1.7rem); line-height:1.35;
+    border-left:2px solid var(--red); padding-left:26px; margin-top:14px;
+  }
+  .stat-row{ display:flex; gap:44px; margin-top:44px; flex-wrap:wrap; }
+  .stat b{ display:block; font-family:'Bodoni Moda',serif; font-size:2.3rem; }
+  .stat span{ color:var(--ink-dim); font-size:0.76rem; letter-spacing:0.05em; text-transform:uppercase; }
+
+  /* ---------- SERVICES (catalog) ---------- */
+  .catalog{ border-bottom:1px solid var(--line); }
+  .catalog-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); margin-top:50px; }
+  @media (max-width:920px){ .catalog-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:600px){ .catalog-grid{ grid-template-columns:1fr; } }
+  .cat-card{ background:var(--base); padding:30px 26px; }
+  .cat-card .roman{ font-family:'Bodoni Moda',serif; color:var(--red); font-size:1rem; margin-bottom:6px; }
+  .cat-card h4{ font-family:'Bodoni Moda',serif; font-size:1.35rem; margin-bottom:20px; }
+  .cat-card .s-item{ display:flex; justify-content:space-between; gap:10px; padding:9px 0; border-top:1px dashed var(--line); font-size:0.9rem; }
+  .cat-card .s-item:first-of-type{ border-top:none; }
+  .cat-card .s-item .price{ font-family:'Bodoni Moda',serif; color:var(--red-deep); white-space:nowrap; }
+  .cat-card .s-more{ margin-top:14px; font-size:0.76rem; color:var(--ink-dim); }
+  .catalog-cta{ margin-top:44px; display:flex; align-items:center; gap:22px; flex-wrap:wrap; }
+  .catalog-note{ color:var(--ink-dim); font-size:0.82rem; }
+
+  /* ---------- MASTHEAD CREDITS (team) ---------- */
+  .credits{ border-bottom:1px solid var(--line); background:var(--base-2); }
+  .credits-list{ margin-top:50px; }
+  .credit-row{
+    display:grid; grid-template-columns:1fr auto auto; align-items:baseline; gap:20px;
+    padding:26px 0; border-top:1px solid var(--line);
+  }
+  .credits-list .credit-row:last-child{ border-bottom:1px solid var(--line); }
+  .credit-row .name{ font-family:'Bodoni Moda',serif; font-size:clamp(1.5rem,3vw,2.1rem); }
+  .credit-row .role{ font-size:0.78rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink-dim); }
+  .credit-row .no{ font-family:'Bodoni Moda',serif; font-style:italic; color:var(--red); font-size:1rem; }
+
+  /* ---------- PLATES (gallery) ---------- */
+  .plates-grid{ display:grid; grid-template-columns:1.1fr .9fr .9fr 1.1fr; gap:16px; margin-top:50px; perspective:1000px; }
+  @media (max-width:860px){ .plates-grid{ grid-template-columns:repeat(2,1fr); } }
+  .plate{
+    aspect-ratio:3/4; border:1px solid var(--line); position:relative; overflow:hidden; background:var(--base-2);
+    display:flex; align-items:center; justify-content:center;
+    transition: transform .25s ease-out, box-shadow .3s ease;
+  }
+  .plate:hover{ box-shadow:0 26px 54px -24px rgba(15,13,11,0.25); }
+  .plate svg{ width:44%; opacity:0.85; transition:transform .5s ease; }
+  .plate img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.15);transition:filter .6s ease,transform .8s cubic-bezier(.19,1,.22,1);}
+  .plate:hover img{filter:grayscale(.18) contrast(1.08);transform:scale(1.06);}
+  .plate:hover svg{ transform:scale(1.08); }
+  .plate .pnum{ position:absolute; z-index:1; top:14px; left:14px; font-family:'Bodoni Moda',serif; font-style:italic; font-size:0.85rem; color:var(--base-2); text-shadow:0 1px 8px rgba(0,0,0,.5); }
+  .plates-note{ margin-top:26px; color:var(--ink-dim); font-size:0.82rem; max-width:60ch; }
+
+  /* ---------- REVIEWS ---------- */
+  .reviews{ border-bottom:1px solid var(--line); background:var(--base-2); overflow:hidden; }
+  .review-head{ display:flex; align-items:flex-end; justify-content:space-between; gap:34px; flex-wrap:wrap; }
+  .review-scores{ display:flex; gap:40px; flex-wrap:wrap; }
+  .review-score .num{ font-family:'Bodoni Moda',serif; font-size:3.4rem; line-height:1; }
+  .review-score .meta p{ color:var(--ink-dim); font-size:0.78rem; letter-spacing:0.04em; margin-top:2px; text-transform:uppercase; }
+  .quote-track-outer{ margin-top:56px; overflow:hidden; }
+  .quote-track{ display:flex; gap:1px; width:max-content; background:var(--line); animation: qScroll 36s linear infinite; }
+  .quote-track-outer:hover .quote-track{ animation-play-state:paused; }
+  @keyframes qScroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+  .quote-card{ background:var(--base); padding:32px; width:380px; flex-shrink:0; }
+  .quote-card p{ font-family:'Bodoni Moda',serif; font-style:italic; font-size:1.2rem; line-height:1.4; }
+  .quote-card .who{ margin-top:20px; font-size:0.74rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink-dim); }
+
+  /* ---------- CONTACT / MASTHEAD footer ---------- */
+  .contact{ border-bottom:1px solid var(--line); }
+  .contact-grid{ display:grid; grid-template-columns:1fr 1fr; gap:0; border:1px solid var(--line); margin-top:50px; background:var(--base-2); }
+  @media (max-width:860px){ .contact-grid{ grid-template-columns:1fr; } }
+  .contact-info{ padding:46px; }
+  .contact-info .row{ display:flex; gap:16px; padding:19px 0; border-bottom:1px solid var(--line); }
+  .contact-info .row:first-child{ padding-top:0; }
+  .contact-info .row svg{ width:19px; height:19px; color:var(--red); flex-shrink:0; margin-top:3px; }
+  .contact-info .row div b{ display:block; font-weight:600; margin-bottom:3px; font-size:0.9rem; }
+  .contact-info .row div span{ color:var(--ink-dim); font-size:0.92rem; }
+  .hours-table{ width:100%; margin-top:6px; }
+  .hours-table tr td{ padding:3px 0; font-size:0.9rem; color:var(--ink-dim); }
+  .hours-table tr td:last-child{ text-align:right; color:var(--ink); }
+  .hours-note{ margin-top:10px; font-size:0.74rem; color:var(--ink-dim); opacity:0.75; }
+  .contact-map{ position:relative; min-height:360px; border-left:1px solid var(--line); }
+  @media (max-width:860px){ .contact-map{ border-left:none; border-top:1px solid var(--line); } }
+  .contact-map iframe{ width:100%; height:100%; min-height:360px; border:0; filter:grayscale(0.55) contrast(1.05); }
+  .contact-actions{ display:flex; gap:12px; margin-top:36px; flex-wrap:wrap; }
+
+  /* ---------- FOOTER ---------- */
+  footer{ padding:56px 0 36px; }
+  .footer-inner{ display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap; }
+  .footer-inner .logo-mini{ font-size:1.2rem; }
+  .foot-links{ display:flex; gap:26px; }
+  .foot-links a{ color:var(--ink-dim); font-size:0.78rem; letter-spacing:0.04em; text-transform:uppercase; }
+  .foot-links a:hover{ color:var(--red); }
+  .foot-credit{ color:var(--ink-dim); font-size:0.72rem; margin-top:26px; letter-spacing:0.03em; }
+
+  /* reveal on scroll (staggered) */
+  .reveal{ opacity:0; transform:translateY(26px); transition:opacity .8s ease, transform .8s cubic-bezier(.19,1,.22,1); }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  /* ---------- TRANSFORMATION JOURNAL ---------- */
+  @property --reveal{syntax:'<percentage>';inherits:false;initial-value:52%;}
+  .transformations{margin-top:clamp(72px,11vh,130px);padding-top:26px;border-top:1px solid var(--line);}
+  .transformations-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,.65fr);gap:34px;align-items:end;margin-bottom:38px;}
+  .transformations-head h4{font-family:'Archivo',sans-serif;font-size:clamp(2.5rem,6vw,6.6rem);letter-spacing:-.075em;line-height:.85;margin:0;}
+  .transformations-head p{font-size:.92rem!important;color:var(--ink-dim);margin:0!important;max-width:42ch!important;}
+  .transformations-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(16px,2.4vw,30px);}
+  .transformation-card{min-width:0;}
+  .transformation-frame{--reveal:52%;position:relative;aspect-ratio:4/5;overflow:hidden;background:#171314;isolation:isolate;cursor:ew-resize;box-shadow:0 24px 70px -40px rgba(16,14,15,.65);user-select:none;-webkit-user-select:none;touch-action:pan-y;}
+  .transformation-frame>img,.transformation-before img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:none!important;margin:0!important;}
+  .transformation-frame img{pointer-events:none;-webkit-user-drag:none;}
+  .transformation-before{position:absolute;z-index:2;inset:0;clip-path:inset(0 calc(100% - var(--reveal)) 0 0);will-change:clip-path;}
+  .transformation-divider{position:absolute;z-index:4;top:0;bottom:0;left:var(--reveal);width:1px;background:rgba(255,255,255,.95);transform:translateX(-50%);pointer-events:none;box-shadow:0 0 28px rgba(0,0,0,.28);}
+  .transformation-divider::after{content:'↔';position:absolute;top:50%;left:50%;width:44px;height:44px;display:grid;place-items:center;border-radius:50%;background:rgba(255,253,249,.94);color:var(--ink);font:500 1rem/1 'Archivo',sans-serif;transform:translate(-50%,-50%);box-shadow:0 8px 28px rgba(0,0,0,.2);}
+  .transformation-label{position:absolute;z-index:5;top:16px;padding:8px 10px;background:rgba(16,14,15,.72);backdrop-filter:blur(9px);color:#fff;font-size:.68rem;letter-spacing:.11em;text-transform:uppercase;pointer-events:none;}
+  .transformation-label.before{left:16px;}.transformation-label.after{right:16px;}
+  .transformation-range{position:absolute;z-index:6;inset:0;width:100%;height:100%;margin:0;opacity:0;pointer-events:none;cursor:ew-resize;}
+  .transformation-frame:focus-within .transformation-divider::after{outline:2px solid var(--red);outline-offset:3px;}
+  .transformation-caption{display:flex;justify-content:space-between;gap:20px;align-items:baseline;padding:16px 0;border-bottom:1px solid var(--line);}
+  .transformation-caption b{font-family:'Bodoni Moda',serif;font-size:clamp(1.25rem,2.1vw,1.8rem);font-weight:500;}
+  .transformation-caption span{font-size:.68rem;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-dim);text-align:right;}
+  .transformation-card.is-seen .transformation-frame{animation:comparison-sweep 1.35s cubic-bezier(.22,1,.36,1) both;}
+  @keyframes comparison-sweep{0%{--reveal:82%;}48%{--reveal:34%;}100%{--reveal:52%;}}
+  .result-journal{margin-top:clamp(72px,10vh,112px);}
+  .result-journal-head{display:flex;align-items:baseline;justify-content:space-between;gap:24px;margin-bottom:22px;}
+  .result-journal-head h5{font-family:'Bodoni Moda',serif;font-size:clamp(1.8rem,3.2vw,3rem);font-weight:500;}
+  .result-journal-head span{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-dim);}
+  .result-rail{display:grid;grid-template-columns:1.15fr .85fr 1fr .82fr 1.1fr;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:14px;scrollbar-width:thin;}
+  .result-shot{position:relative;min-width:220px;aspect-ratio:4/5;overflow:hidden;scroll-snap-align:start;background:#ddd;opacity:0;transform:translateY(34px) rotate(var(--tilt,0deg));transition:opacity .65s ease,transform .9s cubic-bezier(.19,1,.22,1);}
+  .result-shot:nth-child(2){--tilt:1.2deg}.result-shot:nth-child(3){--tilt:-.8deg}.result-shot:nth-child(4){--tilt:.7deg}
+  .result-journal.is-seen .result-shot{opacity:1;transform:translateY(0) rotate(var(--tilt,0deg));}
+  .result-journal.is-seen .result-shot:nth-child(2){transition-delay:.08s}.result-journal.is-seen .result-shot:nth-child(3){transition-delay:.16s}.result-journal.is-seen .result-shot:nth-child(4){transition-delay:.24s}.result-journal.is-seen .result-shot:nth-child(5){transition-delay:.32s}
+  .result-shot img{width:100%;height:100%;object-fit:cover;filter:none!important;transition:transform 1s cubic-bezier(.19,1,.22,1);}
+  .result-shot:hover img{transform:scale(1.045);}
+  .result-shot figcaption{position:absolute;left:12px;bottom:12px;padding:7px 9px;background:rgba(16,14,15,.72);backdrop-filter:blur(8px);color:#fff;font-size:.64rem;letter-spacing:.09em;text-transform:uppercase;}
+  @media(max-width:760px){
+    .transformations-head,.transformations-grid{grid-template-columns:1fr;}
+    .transformations-head{gap:18px;}
+    .result-rail{grid-template-columns:repeat(5,74vw);}
+    .result-shot{min-width:0;}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .transformation-card.is-seen .transformation-frame{animation:none;}
+    .result-shot{opacity:1;transform:none;transition:none;}
+  }
+
+  /* The selected editorial block expands; neighbouring blocks recede. */
+  .atlas-menu{scroll-behavior:auto;overscroll-behavior:contain;}
+  .atlas-menu-panel{transition:grid-template-columns .82s cubic-bezier(.22,1,.36,1),transform .82s cubic-bezier(.22,1,.36,1);}
+  .atlas-menu .menu-col{transition:opacity .46s ease,transform .82s cubic-bezier(.22,1,.36,1),padding .82s cubic-bezier(.22,1,.36,1),background .35s ease,visibility 0s linear .82s;}
+  .atlas-menu-panel[class*="focus-"]{display:grid;height:auto;min-height:100svh;}
+  .atlas-menu-panel[class*="focus-"] .menu-col{display:flex;}
+  .atlas-menu-panel[class*="focus-"] .menu-col:not([data-category]){opacity:0;}
+  .atlas-menu:not(.focused) .menu-detail{display:none;}
+  .atlas-menu.focused .menu-detail{display:block;max-height:2400px;overflow:hidden;opacity:1;transition:opacity .5s ease .28s,transform .6s cubic-bezier(.22,1,.36,1) .22s;}
+  .atlas-menu.focused .menu-col{min-height:100svh!important;padding:clamp(76px,9vh,112px) clamp(28px,8vw,150px) clamp(92px,12vh,150px)!important;}
+  .atlas-menu.focused .menu-category{margin:clamp(14px,3vh,36px) 0 clamp(34px,5vh,58px);max-width:min(78vw,980px);min-height:0;}
+  .atlas-menu.focused .menu-category:hover h3{transform:none;}
+  .atlas-menu.focused .menu-category h3,.atlas-menu.focused .menu-brand{font-size:clamp(3.8rem,8vw,8.5rem)!important;line-height:.82;margin:0!important;letter-spacing:-.085em;}
+  .atlas-menu.focused .menu-detail{width:min(100%,1120px);transform:translateY(0);}
+  .atlas-menu.focused .menu-detail>.detail-label{display:flex;align-items:center;gap:12px;margin-bottom:18px;}
+  .atlas-menu.focused .menu-detail>.detail-label::before{content:'';width:34px;height:1px;background:var(--red);flex:none;}
+  .atlas-menu.focused .menu-detail>p:not(.detail-label){max-width:48ch;}
+  .menu-close{display:none;}
+  .menu-category{max-width:100%;}
+  .menu-category h3{overflow-wrap:anywhere;line-height:1;}
+  .menu-col::after{display:none!important;content:none!important;}
+  .atlas-menu:not(.focused) .menu-category::after{content:'';display:block;width:34px;height:2px;margin-top:24px;background:var(--red);transition:width .55s cubic-bezier(.19,1,.22,1);}
+  .atlas-menu:not(.focused) .menu-col:hover .menu-category::after{width:112px;}
+  .review-score-strip{flex-wrap:wrap;}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--red);outline-offset:5px;}
+  #cursorDot{width:4px;height:4px;}
+  #cursorRing{width:30px;height:30px;}
+  #cursorDot,#cursorRing{opacity:0;transition:opacity .2s ease,width .32s cubic-bezier(.19,1,.22,1),height .32s cubic-bezier(.19,1,.22,1),background .25s ease,border-color .25s ease,transform .16s ease;}
+  body.cursor-visible #cursorDot,body.cursor-visible #cursorRing{opacity:1;}
+  #cursorRing.big{width:70px;height:70px;background:rgba(16,14,15,.94);border-color:var(--ink);box-shadow:0 10px 32px rgba(16,14,15,.16);}
+  #cursorRing.drag{width:78px;height:78px;background:var(--red);border-color:var(--red);}
+  #cursorRing.pressed{transform:translate(-50%,-50%) scale(.84);}
+  #cursorRing span{font-size:.62rem;font-weight:600;color:#fff!important;}
+  .atlas-menu.detail-entered .atlas-menu-panel[class*="focus-"] .menu-category,
+  .atlas-menu.detail-entered .atlas-menu-panel[class*="focus-"] .menu-detail>.detail-label,
+  .atlas-menu.detail-entered .atlas-menu-panel[class*="focus-"] .menu-detail>p:not(.detail-label),
+  .atlas-menu.detail-entered .atlas-menu-panel[class*="focus-"] .menu-detail>.detail-grid,
+  .atlas-menu.overview-entered .menu-col{animation:none;}
+  @keyframes detail-title-rise{from{opacity:0;transform:translateY(34px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes detail-copy-rise{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes overview-column-rise{from{opacity:0;transform:translateY(-22px);}to{opacity:1;transform:translateY(0);}}
+  ::view-transition-group(root){
+    animation-duration:520ms;
+    animation-timing-function:cubic-bezier(.22,1,.36,1);
+  }
+  html.going-detail::view-transition-old(root){animation:overview-out 420ms cubic-bezier(.4,0,.2,1) both;}
+  html.going-detail::view-transition-new(root){animation:detail-in 520ms cubic-bezier(.22,1,.36,1) both;}
+  html.going-back::view-transition-old(root){animation:detail-out 390ms cubic-bezier(.4,0,.2,1) both;}
+  html.going-back::view-transition-new(root){animation:overview-in 520ms cubic-bezier(.22,1,.36,1) both;}
+  @keyframes overview-out{
+    from{opacity:1;transform:translateY(0);filter:blur(0);}
+    to{opacity:0;transform:translateY(-22px);filter:blur(3px);}
+  }
+  @keyframes detail-in{
+    from{opacity:0;transform:translateY(34px);clip-path:inset(5% 0 0 0);}
+    to{opacity:1;transform:translateY(0);clip-path:inset(0);}
+  }
+  @keyframes detail-out{
+    from{opacity:1;transform:translateY(0);filter:blur(0);}
+    to{opacity:0;transform:translateY(20px);filter:blur(3px);}
+  }
+  @keyframes overview-in{
+    from{opacity:0;transform:translateY(-28px);clip-path:inset(0 0 5% 0);}
+    to{opacity:1;transform:translateY(0);clip-path:inset(0);}
+  }
+  @media(max-width:760px){
+    .atlas-menu-panel{grid-template-columns:1fr;}
+    .atlas-menu.focused .menu-col{padding:68px 24px 92px!important;}
+    .atlas-menu.focused .menu-category h3,.atlas-menu.focused .menu-brand{font-size:clamp(3rem,15vw,5.5rem)!important;}
+    .atlas-menu:not(.focused) .menu-col{min-height: min(620px,80svh);}
+  }
+  @media(max-width:860px) and (pointer:fine){
+    body{cursor:none;}
+    #cursorDot{display:block;}
+    #cursorRing{display:flex;}
+  }
+  @media(pointer:fine){
+    body,a,button,.menu-col,.transformation-frame,.transformation-range{cursor:none!important;}
+  }
+  @media(prefers-reduced-motion:reduce){
+    ::view-transition-group(root),::view-transition-old(root),::view-transition-new(root){animation:none!important;}
+  }
+
+</style>
+</head>
+<body>
+
+<div class="crop tl"></div><div class="crop tr"></div><div class="crop bl"></div><div class="crop br"></div>
+<div id="cursorDot"></div>
+<div id="cursorRing"><span id="cursorLabel"></span></div>
+<div id="progress"></div>
+
+<div class="utility">
+  <div class="wrap">
+    <span>Lichtenstein, DE — Vol. 01</span>
+    <div class="u-links">
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="atlasMenu">Menü&nbsp; +</button>
+      <a href="https://www.instagram.com/ilkercibofriseure/?hl=de" target="_blank" rel="noopener" data-cursor="Öffnen">Instagram</a>
+      <a href="https://www.planity.com/de-DE/ilker-cibo-lichtenstein-72805" target="_blank" rel="noopener" data-cursor="Öffnen">Planity</a>
+      <span>September 2026</span>
+    </div>
+  </div>
+</div>
+
+<aside class="atlas-menu open" id="atlasMenu" aria-hidden="false">
+  <div class="atlas-menu-panel" role="dialog" aria-modal="true" aria-label="Navigation">
+    <section class="menu-col" data-category="salon">
+      <button class="menu-close" type="button">Übersicht ×</button>
+      <button class="menu-category" type="button" data-target="salon" aria-label="Salon öffnen"><div class="menu-brand">Salon</div></button>
+      <div class="menu-photo"><img src="assets/ilker-cibo-editorial-hero.png" alt="Editorial-Haarstyling im Salon"></div>
+      <div class="menu-meta"><span><b>Salon &amp; Atmosphäre</b><em>Einblicke · Standort · Öffnungszeiten</em></span><span><b>Team &amp; Ergebnisse</b><em>Stylist:innen · Vorher/Nachher</em></span></div>
+      <div class="menu-detail"><button class="menu-back" type="button">← Übersicht</button><p class="detail-label">Der Salon</p><p>Ein Termin bei Ilker Cibo beginnt mit Zuhören. Danach entsteht ein Look, der zu dir, deinem Haar und deinem Alltag passt.</p><p>Wilhelmstraße 62, 72805 Lichtenstein<br>Telefon 07129 9249210</p><div class="detail-grid"><div><b>Beratung</b><span>Wir sprechen zuerst über den Look, der wirklich zu dir passt.</span></div><div><b>Handwerk</b><span>Präzise Schnitte und individuelle Colorationen, ohne Hektik.</span></div><div><b>Team</b><span>Ilker, Sevinc und Hasan freuen sich auf deinen Besuch.</span></div><div><b>Öffnungszeiten</b><span>Di–Fr 09:00–18:00<br>Sa 09:00–17:00</span></div></div>
+        <section class="transformations" aria-labelledby="transformationsTitle">
+          <div class="transformations-head"><h4 id="transformationsTitle">Vorher.<br>Nachher.</h4><p>Zieh die Linie über das Bild und entdecke Farbe, Struktur und Finish im direkten Vergleich.</p></div>
+          <div class="transformations-grid">
+            <article class="transformation-card"><div class="transformation-frame"><img src="assets/transformation-platinum-after.jpg" alt="Platinblondes Ergebnis mit weichen Wellen"><div class="transformation-before"><img src="assets/transformation-platinum-before.jpg" alt="Blondes Haar vor der Farbveredelung"></div><span class="transformation-label before">Vorher</span><span class="transformation-label after">Nachher</span><span class="transformation-divider" aria-hidden="true"></span><input class="transformation-range" type="range" min="0" max="100" value="52" aria-label="Vorher- und Nachher-Bild Platinblond vergleichen"></div><div class="transformation-caption"><b>Platinum Dimension</b><span>Coloration · Glossing · Styling</span></div></article>
+            <article class="transformation-card"><div class="transformation-frame"><img src="assets/transformation-balayage-after.jpg" alt="Warm dimensioniertes Balayage-Ergebnis"><div class="transformation-before"><img src="assets/transformation-balayage-before.jpg" alt="Brünettes Haar vor der Balayage-Behandlung"></div><span class="transformation-label before">Vorher</span><span class="transformation-label after">Nachher</span><span class="transformation-divider" aria-hidden="true"></span><input class="transformation-range" type="range" min="0" max="100" value="52" aria-label="Vorher- und Nachher-Bild Balayage vergleichen"></div><div class="transformation-caption"><b>Soft Balayage</b><span>Aufhellung · Toner · Finish</span></div></article>
+          </div>
+          <div class="result-journal"><div class="result-journal-head"><h5>Weitere Arbeiten</h5><span>Zum Entdecken wischen →</span></div><div class="result-rail" aria-label="Weitere Frisurergebnisse">
+            <figure class="result-shot"><img src="assets/transformation-brown-result.jpg" alt="Braunes Haar mit weichen, glänzenden Wellen" loading="lazy"><figcaption>Chocolate Layers</figcaption></figure>
+            <figure class="result-shot"><img src="assets/result-blonde-waves.jpg" alt="Blonde Wellen mit natürlicher Dimension" loading="lazy"><figcaption>Soft Blonde</figcaption></figure>
+            <figure class="result-shot"><img src="assets/result-silver-back.jpg" alt="Kühles silberblondes Farbergebnis" loading="lazy"><figcaption>Silver Melt</figcaption></figure>
+            <figure class="result-shot"><img src="assets/result-silver-side.jpg" alt="Silberblondes Haar aus seitlicher Perspektive" loading="lazy"><figcaption>Ice Dimension</figcaption></figure>
+            <figure class="result-shot"><img src="assets/result-short-cut.jpg" alt="Präziser kurzer Haarschnitt mit blondem Deckhaar" loading="lazy"><figcaption>Textured Crop</figcaption></figure>
+          </div></div>
+        </section>
+        <div class="detail-section"><h4>Ilker · Sevinc · Hasan</h4><p>Drei Stylist:innen, ein Anspruch: ehrliche Beratung und sauberes Handwerk.</p><div class="detail-gallery"><img src="assets/ilker-cibo-editorial-hero.png" alt="Editorial-Haarstyling"><img src="assets/ilker-cibo-editorial-detail.png" alt="Detail eines Haarstylings"></div></div><div class="detail-section"><h4>Was Gäste sagen</h4><div class="review-score-strip"><div><b>4,6</b><span>von 5 · Google · 46 Rezensionen</span><em aria-label="4,6 von 5 Sternen">★★★★★</em></div><div><b>4,9</b><span>von 5 · Planity · 178 Bewertungen</span><em aria-label="4,9 von 5 Sternen">★★★★★</em></div></div><div class="review-pair"><blockquote><p>„Sehr freundliche Beratung und ein Ergebnis, das genau meinen Vorstellungen entsprach.“</p><footer><span><cite class="review-author">Verifizierter Gast</cite><small class="review-source">Google-Rezension</small></span><span class="review-stars" aria-label="5 von 5 Sternen">★★★★★</span></footer></blockquote><blockquote><p>„Ich wurde sehr gut beraten und das Ergebnis ist toll.“</p><footer><span><cite class="review-author">Planity-Kundin</cite><small class="review-source">Planity-Bewertung</small></span><span class="review-stars" aria-label="5 von 5 Sternen">★★★★★</span></footer></blockquote><blockquote><p>„Ruhige Atmosphäre, saubere Arbeit — man merkt sofort das Handwerk dahinter.“</p><footer><span><cite class="review-author">Verifizierter Gast</cite><small class="review-source">Google-Rezension</small></span><span class="review-stars" aria-label="5 von 5 Sternen">★★★★★</span></footer></blockquote><blockquote><p>„Top, wie jedes Mal. Bekommen, was gewünscht.“</p><footer><span><cite class="review-author">Planity-Kunde</cite><small class="review-source">Planity-Bewertung</small></span><span class="review-stars" aria-label="5 von 5 Sternen">★★★★★</span></footer></blockquote><blockquote><p>„Termine sind pünktlich, das Team nimmt sich Zeit.“</p><footer><span><cite class="review-author">Verifizierter Gast</cite><small class="review-source">Google-Rezension</small></span><span class="review-stars" aria-label="5 von 5 Sternen">★★★★★</span></footer></blockquote><blockquote><p>„Ich bin sehr zufrieden — wie immer!“</p><footer><span><cite class="review-author">Planity-Kundin</cite><small class="review-source">Planity-Bewertung</small></span><span class="review-stars" aria-label="5 von 5 Sternen">★★★★★</span></footer></blockquote></div></div><a class="menu-book" href="https://www.instagram.com/ilkercibofriseure/?hl=de" target="_blank" rel="noopener">Mehr auf Instagram</a></div>
+      <div class="team-editorial"><div class="detail-section"><h4>Das Team</h4><p>Drei Persönlichkeiten, ein Anspruch: ehrliche Beratung und sauberes Handwerk.</p><div class="team-grid"><article class="team-card"><div class="team-photo-placeholder" aria-label="Platz für ein Foto von Ilker">I</div><div class="team-caption"><b>Ilker</b><span>Inhaber &amp;<br>Friseurmeister</span></div></article><article class="team-card"><div class="team-photo-placeholder" aria-label="Platz für ein Foto von Sevinc">S</div><div class="team-caption"><b>Sevinc</b><span>Stylistin</span></div></article><article class="team-card"><div class="team-photo-placeholder" aria-label="Platz für ein Foto von Hasan">H</div><div class="team-caption"><b>Hasan</b><span>Stylist</span></div></article></div></div></div>
+    </section>
+    <section class="menu-col" data-category="leistungen">
+      <button class="menu-category" type="button" data-target="leistungen"><h3>Leistungen</h3></button>
+      <nav class="menu-list" aria-label="Salonbereiche">
+        <a href="#katalog"><span>Herren</span><small class="service-price">ab 28 €</small></a>
+        <a href="#katalog"><span>Damen</span><small class="service-price">ab 47 €</small></a>
+        <a href="#katalog"><span>Farbe</span><small class="service-price">ab 56 €</small></a>
+        <a href="#katalog"><span>Balayage</span><small class="service-price">ab 247 €</small></a>
+        <a href="#katalog"><span>Kosmetik</span><small class="service-price">ab 8 €</small></a>
+      </nav>
+      <p class="menu-callout">Preise</p>
+      <div class="menu-detail"><button class="menu-back" type="button">← Übersicht</button><p class="detail-label">Leistungen</p><p>Von präzisen Schnitten bis zu weichen Farbverläufen: Wir beraten persönlich und planen den Look gemeinsam mit dir.</p><div class="detail-grid"><div><b>Herren</b><span>Klassischer Schnitt, Fade, Bartpflege und Styling.</span></div><div><b>Damen</b><span>Schnitt, Föhnen und Looks für jede Haarlänge.</span></div><div><b>Farbe</b><span>Farbveredelung, Tönung und natürliche Übergänge.</span></div><div><b>Balayage</b><span>Helle Akzente und weiche, individuelle Verläufe.</span></div></div><div class="detail-section"><h4>Ausgewählte Preise</h4><div class="price-list"><div class="price-row"><span>Herren · Haarschnitt inkl. Waschen</span><b>28 €</b></div><div class="price-row"><span>Herren · Schnitt und Bartrasur</span><b>45 €</b></div><div class="price-row"><span>Damen · Schneiden und Föhnen</span><b>ab 47 €</b></div><div class="price-row"><span>Farbe oder Tönung komplett</span><b>ab 56 €</b></div><div class="price-row"><span>Balayage inkl. Waschen und Trocknen</span><b>ab 247 €</b></div><div class="price-row"><span>Kosmetik · Augenbrauen</span><b>ab 8 €</b></div></div></div><a class="menu-book" href="https://www.planity.com/de-DE/ilker-cibo-lichtenstein-72805" target="_blank" rel="noopener">Alle Preise &amp; Termine</a></div>
+    </section>
+    <section class="menu-col" data-category="termin">
+      <button class="menu-category" type="button" data-target="termin"><h3>Termin</h3></button>
+      <div class="menu-photo"><img src="assets/ilker-cibo-editorial-detail.png" alt="Detail eines Haarstylings"></div>
+      <p class="menu-callout">Finde den Termin, der zu dir passt.</p>
+      <a class="menu-book" href="https://www.planity.com/de-DE/ilker-cibo-lichtenstein-72805" target="_blank" rel="noopener">Online buchen</a>
+      <div class="menu-detail"><button class="menu-back" type="button">← Übersicht</button><p class="detail-label">Dein Termin</p><p>Buche deinen Wunschtermin jederzeit online. Für eine ausführliche Beratung oder bei Fragen erreichst du uns auch telefonisch.</p><div class="detail-grid"><div><b>Online</b><span>Wähle Leistung, Person und Wunschtermin direkt bei Planity.</span></div><div><b>Telefonisch</b><span>07129 9249210<br>Für Fragen und persönliche Beratung.</span></div></div><div class="detail-section"><h4>Besuche uns</h4><div class="contact-block"><div><p>Wilhelmstraße 62<br>72805 Lichtenstein</p><p>Montag 10:00–16:00<br>Dienstag–Freitag 09:00–18:00<br>Samstag 09:00–17:00<br>Sonntag geschlossen</p><a class="menu-book" href="tel:071299249210">Jetzt anrufen</a></div><iframe loading="lazy" title="Anfahrt zu Ilker Cibo Friseure" src="https://www.google.com/maps?q=Wilhelmstra%C3%9Fe+62,+72805+Lichtenstein&amp;output=embed"></iframe></div></div><a class="menu-book" href="https://www.planity.com/de-DE/ilker-cibo-lichtenstein-72805" target="_blank" rel="noopener">Jetzt online buchen</a></div>
+    </section>
+  </div>
+  <button class="global-back" type="button" aria-label="Zurück zur Übersicht">← Zur Übersicht</button>
+</aside>
+
+<div class="masthead">
+  <div class="mast-eyebrow">Friseursalon · Damen &amp; Herren</div>
+  <h1>Ilker Cibo</h1>
+  <div class="mast-sub">Friseure</div>
+</div>
+
+<header id="siteHeader">
+  <nav class="wrap">
+    <a href="#top" class="logo-mini">Ilker Cibo</a>
+    <div class="navlinks">
+      <a href="#story">Über uns</a>
+      <a href="#katalog">Leistungen</a>
+      <a href="#team">Team</a>
+      <a href="#plates">Galerie</a>
+      <a href="#kontakt">Kontakt</a>
+    </div>
+    <a class="btn solid navcta" href="https://www.planity.com/de-DE/ilker-cibo-lichtenstein-72805" target="_blank" rel="noopener" data-cursor="Buchen">Termin buchen</a>
+  </nav>
+</header>
+
+<main id="top">
+
+  <div class="ticker">
+    <div class="ticker-track">
+      <span>Herrenschnitt <i>·</i> Damen <i>·</i> Farbe &amp; Balayage <i>·</i> Kosmetik <i>·</i> Online-Termin <i>·</i> Lichtenstein</span>
+      <span>Herrenschnitt <i>·</i> Damen <i>·</i> Farbe &amp; Balayage <i>·</i> Kosmetik <i>·</i> Online-Termin <i>·</i> Lichtenstein</span>
+    </div>
+  </div>
+
+  <!-- COVER -->
+  <section class="cover" id="cover">
+    <div class="wrap cover-grid">
+      <div>
+        <div class="cover-kicker"><span class="rule"></span>Friseure · Lichtenstein</div>
+        <h2>Ilker Cibo</h2>
+        <p class="cover-lead">Präzision, Beratung und ein ruhiges Ambiente für Damen, Herren und Kinder.</p>
+        <div class="cover-actions">
+          <a class="btn solid" href="https://www.planity.com/de-DE/ilker-cibo-lichtenstein-72805" target="_blank" rel="noopener" data-cursor="Buchen">Online buchen</a>
+          <a class="btn" href="https://www.instagram.com/ilkercibofriseure/?hl=de" target="_blank" rel="noopener" data-cursor="Öffnen">Instagram</a>
+        </div>
+      </div>
+
+      <div class="cover-plate reveal">
+        <div class="plate-frame">
+          <img src="assets/ilker-cibo-editorial-hero.png" alt="Editorial-Haarstyling im Salon">
+          <div class="plate-badge">
+            <div class="num" data-count="4.9">0</div>
+            <div class="lbl">★ · 178 Bewertungen<br>auf Planity</div>
+          </div>
+        </div>
+        <div class="plate-caption"><span>Fig. 01 — Salon, Lichtenstein</span><span>2026</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOC -->
+  <section class="toc">
+    <div class="wrap">
+      <div class="toc-head"><span class="rule"></span>Inhalt dieser Ausgabe</div>
+      <div class="toc-list">
+        <a href="#story" data-cursor="Lesen"><span class="idx">01</span><span class="ttl">Die Geschichte</span><span class="pg">Über den Salon</span></a>
+        <a href="#katalog" data-cursor="Lesen"><span class="idx">02</span><span class="ttl">Der Katalog</span><span class="pg">Leistungen &amp; Preise</span></a>
+        <a href="#team" data-cursor="Lesen"><span class="idx">03</span><span class="ttl">Die Redaktion</span><span class="pg">Unser Team</span></a>
+        <a href="#plates" data-cursor="Lesen"><span class="idx">04</span><span class="ttl">Bildstrecke</span><span class="pg">Galerie &amp; Instagram</span></a>
+        <a href="#bewertungen" data-cursor="Lesen"><span class="idx">05</span><span class="ttl">Kritiken</span><span class="pg">Was Gäste sagen</span></a>
+        <a href="#kontakt" data-cursor="Lesen"><span class="idx">06</span><span class="ttl">Impressum</span><span class="pg">Kontakt &amp; Anfahrt</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STORY -->
+  <section class="story" id="story">
+    <div class="wrap">
+      <div class="reveal">
+        <div class="kicker"><span class="rule"></span>01 — Die Geschichte</div>
+        <h2 class="sec-title">Ein Salon, der Handwerk ernst nimmt</h2>
+      </div>
+      <div class="story-grid">
+        <div class="reveal drop">
+          <p>Bei Ilker Cibo Friseure steht das Gespräch am Anfang jedes Termins. Wir hören zu, beraten ehrlich und arbeiten mit ruhiger Hand — egal ob klassischer Herrenschnitt, Farbe oder ein neuer Look für einen besonderen Anlass.</p>
+          <p>Mitten in Lichtenstein gelegen, ist der Salon ein Ort für Stammkundschaft und neue Gesichter gleichermaßen: unkompliziert, freundlich und mit Blick fürs Detail.</p>
+          <div class="stat-row">
+            <div class="stat"><b>4,6</b><span>Google · 46 Rezensionen</span></div>
+            <div class="stat"><b>4,9</b><span>Planity · 178 Bewertungen</span></div>
+            <div class="stat"><b>3</b><span>Stylist:innen im Team</span></div>
+          </div>
+        </div>
+        <div class="reveal">
+          <p class="pull-quote">„Wir kombinieren klassisches Handwerk mit ehrlicher Beratung — ohne Zeitdruck, mit Blick fürs Detail.“</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATALOG (services) -->
+  <section class="catalog" id="katalog">
+    <div class="wrap">
+      <div class="reveal">
+        <div class="kicker"><span class="rule"></span>02 — Der Katalog</div>
+        <h2 class="sec-title">Leistungen &amp; Preise</h2>
+      </div>
+      <div class="catalog-grid">
+        <div class="reveal cat-card">
+          <div class="roman">I</div>
+          <h4>Herren</h4>
+          <div class="s-item"><span>Klassischer Haarschnitt inkl. Waschen</span><span class="price">28 €</span></div>
+          <div class="s-item"><span>Haarschnitt mit Fade inkl. Waschen</span><span class="price">28 €</span></div>
+          <div class="s-item"><span>Waschen + Schneiden + Bartrasur</span><span class="price">45 €</span></div>
+          <div class="s-more">+ 12 weitere bei Planity</div>
+        </div>
+        <div class="reveal cat-card">
+          <div class="roman">II</div>
+          <h4>Damen</h4>
+          <div class="s-item"><span>Waschen + Schneiden + Föhnen (kurz)</span><span class="price">47 €</span></div>
+          <div class="s-item"><span>Waschen + Schneiden (kurz)</span><span class="price">35 €</span></div>
+          <div class="s-item"><span>Waschen + Schneiden + Föhnen (mittel-lang)</span><span class="price">ab 49 €</span></div>
+          <div class="s-more">+ 10 weitere bei Planity</div>
+        </div>
+        <div class="reveal cat-card">
+          <div class="roman">III</div>
+          <h4>Farbe &amp; Tönung</h4>
+          <div class="s-item"><span>Farbe/Tönung komplett</span><span class="price">ab 56 €</span></div>
+          <div class="s-item"><span>Komplett + Schneiden + Föhnen</span><span class="price">ab 104 €</span></div>
+          <div class="s-item"><span>Ansatzfarbe + Föhnen</span><span class="price">ab 77 €</span></div>
+          <div class="s-more">+ 9 weitere bei Planity</div>
+        </div>
+        <div class="reveal cat-card">
+          <div class="roman">IV</div>
+          <h4>Strähnen &amp; Balayage</h4>
+          <div class="s-item"><span>Balayage inkl. Waschen &amp; Trocknen</span><span class="price">ab 247 €</span></div>
+          <div class="s-item"><span>Ombré inkl. Waschen &amp; Trocknen</span><span class="price">ab 247 €</span></div>
+          <div class="s-item"><span>Foliensträhnen, ganzer Kopf</span><span class="price">ab 234 €</span></div>
+          <div class="s-more">+ 5 weitere bei Planity</div>
+        </div>
+        <div class="reveal cat-card">
+          <div class="roman">V</div>
+          <h4>Kinder bis 12</h4>
+          <div class="s-item"><span>Waschen + Schneiden (Junge)</span><span class="price">24 €</span></div>
+          <div class="s-item"><span>Waschen, Schneiden + Föhnen (Mädchen)</span><span class="price">34 €</span></div>
+          <div class="s-item"><span>Haarschnitt</span><span class="price">22 €</span></div>
+        </div>
+        <div class="reveal cat-card">
+          <div class="roman">VI</div>
+          <h4>Kosmetik</h4>
+          <div class="s-item"><span>Augenbrauen zupfen</span><span class="price">8 €</span></div>
+          <div class="s-item"><span>Augenbrauen färben</span><span class="price">8 €</span></div>
+          <div class="s-item"><span>Gesicht inkl. Augenbrauen</span><span class="price">25 €</span></div>
+        </div>
+      </div>
+      <div class="reveal catalog-cta">
+        <a class="btn solid" href="https://www.planity.com/de-DE/ilker-cibo-lichtenstein-72805" target="_blank" rel="noopener" data-cursor="Buchen">Alle Preise &amp; online buchen</a>
+        <p class="catalog-note">Preise laut Planity-Buchungsseite, Stand September 2026 — Änderungen vorbehalten.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CREDITS (team) -->
+  <section class="credits" id="team">
+    <div class="wrap">
+      <div class="reveal">
+        <div class="kicker"><span class="rule"></span>03 — Die Redaktion</div>
+        <h2 class="sec-title">Unser Team</h2>
+      </div>
+      <div class="credits-list">
+        <div class="reveal credit-row">
+          <div class="name">Ilker</div>
+          <div class="role">Inhaber &amp; Friseurmeister</div>
+          <div class="no">No. 01</div>
+        </div>
+        <div class="reveal credit-row">
+          <div class="name">Sevinc</div>
+          <div class="role">Stylistin</div>
+          <div class="no">No. 02</div>
+        </div>
+        <div class="reveal credit-row">
+          <div class="name">Hasan</div>
+          <div class="role">Stylist</div>
+          <div class="no">No. 03</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLATES (gallery) -->
+  <section id="plates">
+    <div class="wrap">
+      <div class="reveal" style="display:flex; justify-content:space-between; align-items:flex-end; gap:20px; flex-wrap:wrap;">
+        <div>
+          <div class="kicker"><span class="rule"></span>04 — Bildstrecke</div>
+          <h2 class="sec-title">Der Salon</h2>
+        </div>
+        <a class="btn" href="https://www.instagram.com/ilkercibofriseure/?hl=de" target="_blank" rel="noopener" data-cursor="Öffnen">@ilkercibofriseure</a>
+      </div>
+      <div class="plates-grid reveal">
+        <a class="plate" data-tilt href="https://www.instagram.com/ilkercibofriseure/?hl=de" target="_blank" rel="noopener" data-cursor="Ansehen">
+          <span class="pnum">Plate 01</span>
+          <img src="assets/ilker-cibo-editorial-hero.png" alt="Editorial-Haarstyling">
+        </a>
+        <a class="plate" data-tilt href="https://www.instagram.com/ilkercibofriseure/?hl=de" target="_blank" rel="noopener" data-cursor="Ansehen">
+          <span class="pnum">Plate 02</span>
+          <img src="assets/ilker-cibo-editorial-detail.png" alt="Detail eines Editorial-Haarstylings">
+        </a>
+        <a class="plate" data-tilt href="https://www.instagram.com/ilkercibofriseure/?hl=de" target="_blank" rel="noopener" data-cursor="Ansehen">
+          <span class="pnum">Plate 03</span>
+          <img src="assets/ilker-cibo-editorial-hero.png" style="object-position:72% center" alt="Editorial-Porträt im Salon">
+        </a>
+        <a class="plate" data-tilt href="https://www.instagram.com/ilkercibofriseure/?hl=de" target="_blank" rel="noopener" data-cursor="Ansehen">
+          <span class="pnum">Plate 04</span>
+          <img src="assets/ilker-cibo-editorial-detail.png" style="object-position:70% center" alt="Editorial-Detail im Salon">
+        </a>
+      </div>
+      <p class="reveal plates-note">Eine kleine Bildstrecke als Vorschau auf den Stil des Salons. Auf Instagram findest du weitere Looks und Inspirationen.</p>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="reviews" id="bewertungen">
+    <div class="wrap">
+      <div class="review-head reveal">
+        <div>
+          <div class="kicker"><span class="rule"></span>05 — Kritiken</div>
+          <h2 class="sec-title">Was Gäste sagen</h2>
+        </div>
+        <div class="review-scores">
+          <div class="review-score"><div class="num" data-count="4.6">0</div><div class="meta"><p>Google · 46 Rezensionen</p></div></div>
+          <div class="review-score"><div class="num" data-count="4.9">0</div><div class="meta"><p>Planity · 178 Bewertungen</p></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="quote-track-outer">
+      <div class="quote-track">
+        <div class="quote-card"><p>„Sehr freundliche Beratung und ein Ergebnis, das genau meinen Vorstellungen entsprach.“</p><div class="who">Google-Rezension</div></div>
+        <div class="quote-card"><p>„Ich wurde sehr gut beraten und das Ergebnis ist toll.“</p><div class="who">Planity-Rezension</div></div>
+        <div class="quote-card"><p>„Ruhige Atmosphäre, saubere Arbeit — man merkt sofort das Handwerk dahinter.“</p><div class="who">Google-Rezension</div></div>
+        <div class="quote-card"><p>„Top, wie jedes Mal. Bekommen, was gewünscht.“</p><div class="who">Planity-Rezension</div></div>
+        <div class="quote-card"><p>„Termine sind pünktlich, das Team nimmt sich Zeit.“</p><div class="who">Google-Rezension</div></div>
+        <div class="quote-card"><p>„Ich bin sehr zufrieden — wie immer!“</p><div class="who">Planity-Rezension</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="kontakt">
+    <div class="wrap">
+      <div class="reveal">
+        <div class="kicker"><span class="rule"></span>06 — Impressum</div>
+        <h2 class="sec-title">Besuchen Sie uns</h2>
+      </div>
+      <div class="contact-grid reveal">
+        <div class="contact-info">
+          <div class="row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 21s7-7.2 7-12a7 7 0 10-14 0c0 4.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.4"/></svg>
+            <div><b>Adresse</b><span>Wilhelmstraße 62, 72805 Lichtenstein</span></div>
+          </div>
+          <div class="row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 5c0 8.3 6.7 15 15 15l3-4-6-3-2 2c-2.5-1.2-4.8-3.5-6-6l2-2-3-6-4 3z"/></svg>
+            <div><b>Telefon</b><span>07129 9249210</span></div>
+          </div>
+          <div class="row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+            <div>
+              <b>Öffnungszeiten</b>
+              <table class="hours-table">
+                <tr><td>Montag</td><td>10:00–16:00</td></tr>
+                <tr><td>Dienstag – Freitag</td><td>09:00–18:00</td></tr>
+                <tr><td>Samstag</td><td>09:00–17:00</td></tr>
+                <tr><td>Sonntag</td><td>geschlossen</td></tr>
+              </table>
+              <div class="hours-note">Quelle: Planity-Buchungsseite.</div>
+            </div>
+          </div>
+          <div class="contact-actions">
+            <a class="btn solid" href="https://www.planity.com/de-DE/ilker-cibo-lichtenstein-72805" target="_blank" rel="noopener" data-cursor="Buchen">Online buchen</a>
+            <a class="btn" href="tel:071299249210" data-cursor="Anrufen">Jetzt anrufen</a>
+            <a class="btn" href="https://www.google.com/maps/dir/?api=1&destination=Wilhelmstra%C3%9Fe+62,+72805+Lichtenstein" target="_blank" rel="noopener" data-cursor="Öffnen">Route planen</a>
+            <a class="btn" href="https://www.instagram.com/ilkercibofriseure/?hl=de" target="_blank" rel="noopener" data-cursor="Öffnen">Instagram</a>
+          </div>
+        </div>
+        <div class="contact-map">
+          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps?q=Wilhelmstra%C3%9Fe+62,+72805+Lichtenstein&output=embed">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <a href="#top" class="logo-mini">Ilker Cibo Friseure</a>
+    <div class="foot-links">
+      <a href="#katalog">Leistungen</a>
+      <a href="#plates">Galerie</a>
+      <a href="https://www.planity.com/de-DE/ilker-cibo-lichtenstein-72805" target="_blank" rel="noopener">Buchen</a>
+      <a href="https://www.instagram.com/ilkercibofriseure/?hl=de" target="_blank" rel="noopener">Instagram</a>
+    </div>
+  </div>
+  <div class="wrap foot-credit">© 2026 Ilker Cibo Friseure · Wilhelmstraße 62, 72805 Lichtenstein · 07129 9249210</div>
+</footer>
+
+<script>
+  /* full-screen editorial menu */
+  const atlasMenu = document.getElementById('atlasMenu');
+  const menuToggle = document.querySelector('.menu-toggle');
+  const menuPanel = atlasMenu.querySelector('.atlas-menu-panel');
+  let menuAnimating = false;
+  let overviewScroll = 0;
+  let activeCategory = null;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const columns = [...menuPanel.querySelectorAll('.menu-col')];
+  const backButton = atlasMenu.querySelector('.global-back');
+  function setView(category) {
+    menuPanel.classList.remove('focus-salon', 'focus-leistungen', 'focus-termin');
+    atlasMenu.classList.toggle('focused', Boolean(category));
+    if (category) menuPanel.classList.add(`focus-${category}`);
+    columns.forEach(column => {
+      const selected = column.dataset.category === category;
+      column.inert = Boolean(category) && !selected;
+      column.querySelector('.menu-detail').inert = !selected;
+      column.querySelector('.menu-category').setAttribute('aria-expanded', String(selected));
+    });
+    backButton.inert = !category;
+    atlasMenu.scrollTop = category ? 0 : overviewScroll;
+    const focusTarget = category ? backButton :
+      atlasMenu.querySelector(`[data-target="${activeCategory}"]`);
+    focusTarget?.focus({ preventScroll: true });
+    activeCategory = category;
+  }
+  async function changeView(category) {
+    if (menuAnimating || category === activeCategory) return;
+    if (category && !activeCategory) overviewScroll = atlasMenu.scrollTop;
+    menuAnimating = true;
+    atlasMenu.classList.remove('settled', 'detail-entered', 'overview-entered');
+    setView(category);
+    if (!reducedMotion.matches) await new Promise(resolve => setTimeout(resolve, 840));
+    if (category) atlasMenu.classList.add('settled');
+    menuAnimating = false;
+  }
+  const resetMenuView = () => changeView(null);
+  const focusCategory = category => {
+    if (columns.some(column => column.dataset.category === category)) changeView(category);
+  };
+  document.querySelectorAll('.transformation-range').forEach(range => {
+    const frame = range.closest('.transformation-frame');
+    const card = range.closest('.transformation-card');
+    const setComparison = value => {
+      card.classList.remove('is-seen');
+      const safeValue = Math.max(0, Math.min(100, Number(value)));
+      range.value = safeValue;
+      frame.style.setProperty('--reveal', `${safeValue}%`);
+      range.setAttribute('aria-valuetext', `${Math.round(safeValue)} Prozent Vorher sichtbar`);
+    };
+    const updateFromX = clientX => {
+      const rect = frame.getBoundingClientRect();
+      setComparison(((clientX - rect.left) / rect.width) * 100);
+    };
+    range.addEventListener('input', () => setComparison(range.value));
+    let mouseDragging = false;
+    frame.addEventListener('mousedown', event => {
+      if (event.button !== 0) return;
+      event.preventDefault();
+      mouseDragging = true;
+      updateFromX(event.clientX);
+      range.focus({ preventScroll: true });
+    });
+    window.addEventListener('mousemove', event => {
+      if (mouseDragging) updateFromX(event.clientX);
+    });
+    window.addEventListener('mouseup', () => { mouseDragging = false; });
+    frame.addEventListener('touchstart', event => {
+      const touch = event.touches[0];
+      if (!touch) return;
+      event.preventDefault();
+      updateFromX(touch.clientX);
+      range.focus({ preventScroll: true });
+    }, { passive: false });
+    frame.addEventListener('touchmove', event => {
+      const touch = event.touches[0];
+      if (!touch) return;
+      event.preventDefault();
+      updateFromX(touch.clientX);
+    }, { passive: false });
+    frame.addEventListener('dragstart', event => event.preventDefault());
+    setComparison(range.value);
+  });
+  const galleryObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-seen');
+      galleryObserver.unobserve(entry.target);
+    });
+  }, { threshold: .22 });
+  document.querySelectorAll('.transformation-card,.result-journal').forEach(item => galleryObserver.observe(item));
+  setView(null);
+
+  /* responsive editorial cursor */
+  const dot = document.getElementById('cursorDot');
+  const ring = document.getElementById('cursorRing');
+  const cursorLabel = document.getElementById('cursorLabel');
+  const finePointer = window.matchMedia('(pointer:fine)');
+  let mouseX = -100, mouseY = -100, ringX = -100, ringY = -100;
+  const cursorActionFor = target => {
+    if (target.closest('.transformation-frame')) return ['Ziehen', true];
+    if (target.closest('.global-back')) return ['Zurück', false];
+    if (target.closest('.result-shot')) return ['Entdecken', false];
+    const control = target.closest('a,button');
+    if (control) return [control.dataset.cursor || (control.classList.contains('menu-category') ? 'Öffnen' : 'Klicken'), false];
+    if (!atlasMenu.classList.contains('focused') && target.closest('.menu-col')) return ['Öffnen', false];
+    return ['', false];
+  };
+  if (finePointer.matches) {
+    window.addEventListener('pointermove', event => {
+      mouseX = event.clientX; mouseY = event.clientY;
+      dot.style.left = `${mouseX}px`; dot.style.top = `${mouseY}px`;
+      document.body.classList.add('cursor-visible');
+      const [action, isDrag] = cursorActionFor(event.target);
+      cursorLabel.textContent = action;
+      ring.classList.toggle('big', Boolean(action));
+      ring.classList.toggle('drag', isDrag);
+    });
+    window.addEventListener('pointerdown', () => ring.classList.add('pressed'));
+    window.addEventListener('pointerup', () => ring.classList.remove('pressed'));
+    document.documentElement.addEventListener('mouseleave', () => document.body.classList.remove('cursor-visible'));
+    const animateCursor = () => {
+      ringX += (mouseX - ringX) * .18;
+      ringY += (mouseY - ringY) * .18;
+      ring.style.left = `${ringX}px`; ring.style.top = `${ringY}px`;
+      requestAnimationFrame(animateCursor);
+    };
+    animateCursor();
+  }
+  const closeMenu = () => {
+    resetMenuView();
+  };
+  const openMenu = () => {
+    atlasMenu.classList.add('open');
+    atlasMenu.setAttribute('aria-hidden', 'false');
+    menuToggle.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  };
+  menuToggle.addEventListener('click', () => atlasMenu.classList.contains('open') ? closeMenu() : openMenu());
+  atlasMenu.querySelector('.menu-close').addEventListener('click', closeMenu);
+  atlasMenu.querySelectorAll('.menu-category').forEach(button => button.addEventListener('click', () => {
+    focusCategory(button.dataset.target);
+  }));
+  atlasMenu.querySelectorAll('.menu-col').forEach(column => column.addEventListener('click', event => {
+    if (atlasMenu.classList.contains('focused') || event.target.closest('a,button')) return;
+    focusCategory(column.dataset.category);
+  }));
+  atlasMenu.querySelectorAll('.menu-back').forEach(button => button.addEventListener('click', resetMenuView));
+  atlasMenu.querySelector('.global-back').addEventListener('click', resetMenuView);
+  atlasMenu.querySelectorAll('a[href^="#"]').forEach(link => link.addEventListener('click', event => {
+    event.preventDefault();
+    focusCategory('leistungen');
+  }));
+  atlasMenu.addEventListener('click', event => { if (event.target === atlasMenu) closeMenu(); });
+  window.addEventListener('keydown', event => { if (event.key === 'Escape' && atlasMenu.classList.contains('open')) closeMenu(); });
+  document.body.style.overflow = 'hidden';
+  const teamEditorial = atlasMenu.querySelector('.team-editorial');
+  const formerTeamHeading = [...atlasMenu.querySelectorAll('.detail-section h4')].find(heading => heading.textContent.includes('Ilker'));
+  if (teamEditorial && formerTeamHeading) {
+    const imageSection = formerTeamHeading.closest('.detail-section');
+    imageSection.before(teamEditorial);
+    formerTeamHeading.textContent = 'Bildstrecke';
+    const imageIntro = formerTeamHeading.nextElementSibling;
+    if (imageIntro) imageIntro.textContent = 'Ein erster Eindruck unserer visuellen Welt. Echte Team- und Salonbilder können später direkt eingesetzt werden.';
+  }
+
+  /* sticky nav after masthead */
+  const header = document.getElementById('siteHeader');
+  const progress = document.getElementById('progress');
+  const masthead = document.querySelector('.masthead');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('show', window.scrollY > masthead.offsetHeight + 40);
+    const h = document.documentElement;
+    const pct = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+    progress.style.width = pct + '%';
+  });
+
+  /* staggered scroll reveal */
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e,i) => { if(e.isIntersecting){
+      setTimeout(()=> e.target.classList.add('in'), i*60);
+      io.unobserve(e.target);
+    } });
+  }, { threshold:0.15 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  /* hero parallax on mouse move */
+  const platePlate = document.querySelector('.cover-plate');
+  document.querySelector('.cover')?.addEventListener('mousemove', (e)=>{
+    const r = e.currentTarget.getBoundingClientRect();
+    const px = (e.clientX - r.left)/r.width - 0.5;
+    const py = (e.clientY - r.top)/r.height - 0.5;
+    if(platePlate) platePlate.style.transform = `translate(${px*10}px, ${py*10}px)`;
+  });
+
+  /* count-up numbers */
+  const counters = document.querySelectorAll('[data-count]');
+  const cio = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const el = e.target;
+        const target = parseFloat(el.dataset.count);
+        let cur = 0;
+        const step = target/40;
+        const tick = ()=>{
+          cur += step;
+          if(cur >= target){ el.textContent = target.toFixed(1); return; }
+          el.textContent = cur.toFixed(1);
+          requestAnimationFrame(tick);
+        };
+        tick();
+        cio.unobserve(el);
+      }
+    });
+  }, { threshold:0.4 });
+  counters.forEach(c=>cio.observe(c));
+
+  /* plate tilt */
+  document.querySelectorAll('[data-tilt]').forEach(tile=>{
+    tile.addEventListener('mousemove', (e)=>{
+      const r = tile.getBoundingClientRect();
+      const px = (e.clientX - r.left)/r.width - 0.5;
+      const py = (e.clientY - r.top)/r.height - 0.5;
+      tile.style.transform = `rotateY(${px*9}deg) rotateX(${py*-9}deg) translateY(-4px)`;
+    });
+    tile.addEventListener('mouseleave', ()=>{ tile.style.transform = 'rotateY(0) rotateX(0) translateY(0)'; });
+  });
+</script>
+
+</body>
+</html>
